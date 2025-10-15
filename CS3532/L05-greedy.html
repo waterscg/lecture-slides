@@ -55,6 +55,36 @@
 				</section>
 
 				<section data-auto-animate data-auto-animate-restart>
+					<h3>Optimal Sub-Structures</h3>
+					<ul class="small">
+						<li>A problem is said to exhibit <strong>optimal sub-structures</strong> if an optimal solution can be built from optimal solutions to its sub-problems.</li>
+						<ul>
+							<li class="fragment">Consider an optimal solution for finding a route from <em>Boone</em> to <em>Charlotte</em>. <span class="fragment">That optimal route goes through <em>Hickory</em>.</span></li>
+							<li class="fragment">That route will contain the optimal route from <em>Boone</em> to <em>Hickory</em> and the optimal route from <em>Hickory</em> to <em>Charlotte</em>.</li>
+						</ul>
+						<li class="fragment">Optimal sub-structures don't necessarily imply a greedy algorithm.</li>
+					</ul>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Optimal Sub-Structures</h3>
+					<ul class="small">
+						<li>Some example problems <strong>with optimal sub-structures</strong>:</li>
+						<ul>
+							<li class="fragment">The <em>longest increasing subsequence</em> problem</li>
+							<li class="fragment">The <em>knapsack</em> problem</li>
+							<li class="fragment">The <em>longest common subsequence</em> problem</li>
+							<li class="fragment">The <em>shortest path</em> problem (Dijkstra's is a greedy algorithm)</li>
+							<li class="fragment">The <em>longest palindromic substring</em> problem</li>
+						</ul>
+						<li class="fragment">Some example problems that <strong>don't</strong> exhibit optimal sub-structures:</li>
+						<ul>
+							<li class="fragment">The <em>longest simple path</em> problem</li>
+						</ul>
+					</ul>
+				</section>
+
+				<section data-auto-animate data-auto-animate-restart>
 					<h3>Case Study: Coin Change</h3>
 					<p class="small problem-text" data-id="problem-text">
 						Given a target amount $V$ cents and a list of denominations of $n$ coins, what is the minimum number of coins needed to represent $V$?
