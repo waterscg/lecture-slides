@@ -115,31 +115,26 @@
 				<section data-auto-animate>
 					<h3>Minimum Spanning Trees</h3>
 					<ul class="small">
-						<li><strong>Problem:</strong> Find a min-cost subset of edges that connects all nodes.</li>
+						<li><strong>Problem:</strong> Given a connected, weighted graph, find a subset of edges that <em>connects all nodes</em>, has <em>no cycles</em>, and has the <em>minimum total edge cost</em>.</li>
+						<li>A minimum spanning tree (MST) will always have $n-1$ edges, and there might be multiple of the same cost.</li>
 					</ul>
-					<img src="figures/graphs/graph-minspantree.svg" data-id="minspantree">
-				</section>
-
-				<section data-auto-animate>
-					<h3>Minimum Spanning Trees</h3>
-					<ul class="small">
-						<li><strong>Problem:</strong> Find a min-cost subset of edges that connects all nodes.</li>
-					</ul>
-					<img src="figures/graphs/graph-minspantree2.svg" data-id="minspantree">
-				</section>
-
-				<section data-auto-animate>
-					<h3>Matchings</h3>
-					<div class="columns">
-						<div class="one-column">
-							<ul class="small">
-								<li><strong>Problem:</strong> Pair up as many nodes as possible, or pair all nodes at minimum total cost.</li>
-							</ul>
-						</div>
-						<div class="one-column">
-							<img src="figures/graphs/graph-bipartite.svg" data-id="matching">
-						</div>
+					<div class="r-stack">
+						<img src="figures/graphs/graph-minspantree.svg" data-id="minspantree">
+						<img class="fragment" src="figures/graphs/graph-minspantree2.svg" data-id="minspantree">
 					</div>
+
+					<aside class="notes">
+						Why MSTs Matter:
+							- Useful for designing efficient networks:
+								- Internet/telephone cables
+								- Road or pipeline connections
+								- Cluster analysis in machine learning
+						Algorithms:
+							- Kruskal: Add lightest edges first, skip cycles (uses Union-Find).
+								- Kruskal: O(E log E)
+							- Prim: Grow tree from any start vertex, always take the cheapest edge leaving the tree.
+								- Prim (with priority queue): O(E log V)
+					</aside>
 				</section>
 
 				<section data-auto-animate>
@@ -147,11 +142,14 @@
 					<div class="columns">
 						<div class="one-column">
 							<ul class="small">
-								<li><strong>Problem:</strong> Pair up as many nodes as possible, or pair all nodes at minimum total cost.</li>
+								<li><strong>Problem:</strong> find a set of edges such that no two edges share a vertex. Think of it as pairing up nodes without overlap.</li>
+								<li>In a sparse graph, this might be <em>pairing up as many nodes as possible</em></li>
+								<li>In a dense or complete graph, this might be <em>pairing all nodes at minimum total cost</em>.</li>
 							</ul>
 						</div>
-						<div class="one-column">
-							<img src="figures/graphs/graph-bipartite-matching.svg" data-id="matching">
+						<div class="one-column r-stack">
+							<img src="figures/graphs/graph-bipartite.svg" data-id="matching">
+							<img class="fragment" src="figures/graphs/graph-bipartite-matching.svg" data-id="matching">
 						</div>
 					</div>
 				</section>
@@ -492,21 +490,15 @@
 
 				<section data-auto-animate>
 					<h3>Updating Cost Labels</h3>
-					<div class="columns">
-						<div class="one-column">
-							<p class="small">If this is violated for some edge $(i,j)$, we can improve (<em>tighten</em>) the cost label of node $j$</p>
-						</div>
-						<div class="one-column">
-							<pre>
-								<code data-trim data-line-numbers>
-									tighten(i,j): // aka relax(i,j)
-										if c[i] + cost(i,j) < c[j]:
-											c[j] = c[i] + cost(i,j)
-											pred[j] = i
-								</code>
-							</pre>
-						</div>
-					</div>
+					<p class="xsmall">If this is violated for some edge $(i,j)$, we can improve (<em>tighten</em>) the cost label of node $j$</p>
+					<pre>
+						<code data-trim data-line-numbers>
+							tighten(i,j): // aka relax(i,j)
+								if c[i] + cost(i,j) < c[j]:
+									c[j] = c[i] + cost(i,j)
+									pred[j] = i
+						</code>
+					</pre>
 					<img src="figures/graphs/triangle-1.svg" width="75%" data-id="triangle">
 				</section>
 
@@ -666,7 +658,8 @@
 					</table>
 					<ul class="small">
 						<li class="fragment"><strong>Which is best?</strong> <span class="fragment">The unsorted array is better for a <em>dense graph</em>, and the binary heap is better for a <em>sparse graph</em>.</span></li>
-						<li class="fragment">The Fibonacci heap bound is at least as good as both other bounds in any graph! <span class="fragment"><em>Sadly, the Fibonacci heap is so complicated that it is rarely faster in practice.</em></span></li>
+						<li class="fragment">The Fibonacci heap bound is at least as good as both other bounds in any graph! 
+							<span class="fragment"><em>Sadly, the Fibonacci heap is rarely faster in practice.</em></span></li>
 					</ul>
 				</section>
 
@@ -674,10 +667,10 @@
 					<h3>Formulating Shortest Path Problems</h3>
 					<p><strong>(Change the Problem, Not the Algorithm)</strong></p>
 					<ul class="small">
-						<li class="fragment">In a road network, suppose right turns can be made instantly, but left turns take 1 extra unit of time.</li>
-						<li class="fragment">Suppose we have N jobs to complete. Each job has a duration and possible prerequisite jobs. Working in parallel, <em>what is the fastest we can complete all the jobs?</em></li>
+						<li class="fragment">In a road network, suppose right turns can be made instantly, but left turns take 1 extra unit of time. <em>What is the shortest path from $s-t$?</em></em></li>
+						<li class="fragment">Suppose we have $N$ jobs to complete. Each job has a duration and possible prerequisite jobs. Working in parallel, <em>what is the fastest we can complete all the jobs?</em></li>
 						<li class="fragment">Suppose some roads charge a $1 toll. <em>How do we find a shortest path if we can pay at most $3 overall?</em></li>
-						<li class="fragment">What is <em>the second-shortest s-t path in a graph?</em></li>
+						<li class="fragment">What is <em>the second-shortest $s-t$ path in a graph?</em></li>
 					</ul>
 
 					<aside class="notes">
@@ -696,15 +689,13 @@
 				<section data-auto-animate>
 					<h3>Formulating Shortest Path Problems</h3>
 					<ul class="small">
-						<li><strong>Let's make change!</strong></li>
-						<li>You are given $n$ different coin denominations (for example, 1&cent;, 6&cent;, 10&cent;, etc)</li>
-						<li>What is the minimum number of coins to make exactly <em>C</em> cents of change?</li>
+						<li>You are given $n$ different coin denominations (for example, 1&cent;, 6&cent;, 10&cent;, etc). <em>What is the minimum number of coins to make exactly $C$ cents of change?</em></li>
 					</ul>
 
 					<aside class="notes">
 						build a graph with nodes having values 0-C,
 						add edges with no weight or 1-cost connecting each node x to node x+c_0, x+c_1, x+c_2, ...
-						run DFS (DFS best, but any shortest path algorithm) to compute shortest path from 0 to C
+						run BFS (BFS best, but any shortest path algorithm) to compute shortest path from 0 to C
 					</aside>
 				</section>
 			</div>
