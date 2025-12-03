@@ -147,7 +147,8 @@
 						<p class="small">We can <em>memoize</em> this<span class="fragment">?</span></p>
 					</div>
 					<aside class="notes">
-
+						Memoization is potentially hard because of cycles. To solve the problem for a specific node, we need to evaluate all incoming paths,
+						which leads to a cyclic dependency (to solve for node v, we must first find the shortest path to node v).
 					</aside>
 				</section>
 

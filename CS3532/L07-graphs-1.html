@@ -38,84 +38,16 @@
 
 				<section data-auto-animate data-auto-animate-restart>
 					<h3>Graph Representations</h3>
-					<p>An <strong>adjacency matrix</strong> (ideal for <em>dense</em> graphs)</p>
-					<div class="columns">
-						<div class="two-columns">
-							<img src="../CS3460/figures/graphs/repr-example-1.svg" width="80%">
-						</div>
-						<div class="one-column">
-							<pre>
-								<code data-trim>
-									    1 2 3 4
-									  +--------
-									1 | 0 1 0 0
-									2 | 0 0 1 0
-									3 | 1 0 0 1
-									4 | 0 0 1 0
-								</code>
-							</pre>
-						</div>
-					</div>
-				</section>
-
-				<section data-auto-animate>
-					<h3>Graph Representations</h3>
-					<p>An <strong>edge list</strong> (good for <em>sparse</em> graphs)</p>
-					<div class="columns">
-						<div class="two-columns">
-							<img src="../CS3460/figures/graphs/repr-example-2.svg" width="60%" data-id="example">
-						</div>
-						<div class="one-column">
-							<pre>
-								<code data-trim>
-									(1,2), (1,3), (2,1), 
-									(2,3), (2,4), (3,1), 
-									(3,2), (3,4), (3,5),
-									(4,2), (4,3), (4,5),
-									(5,3), (5,4)
-								</code>
-							</pre>
-							<p class="small">Good for algorithms that use all edges. Easy to represent edge weights.</p>
-						</div>
-					</div>
-				</section>
-
-				<section data-auto-animate>
-					<h3>Graph Representations</h3>
-					<p>An <strong>adjacency list</strong> (ideal for <em>sparse</em> graphs)</p>
-					<div class="columns">
-						<div class="two-columns">
-							<img src="../CS3460/figures/graphs/repr-example-2.svg" width="60%" data-id="example">
-						</div>
-						<div class="one-column">
-							<pre>
-								<code data-trim>
-									1: 2 3
-									2: 1 3 4
-									3: 1 2 4 5
-									4: 2 3 5
-									5: 3 4
-								</code>
-							</pre>
-							<p class="small">Unless otherwise stated, we will assume our graphs are represented using adjacency lists.</p>
-						</div>
-					</div>
-				</section>
-
-				<section data-auto-animate data-auto-animate-restart>
-					<h3>Simple Connectivity Questions</h3>
 					<ul class="small">
-						<li>Some of the most fundamental graph questions related to <em>connectivity</em>:</li>
+						<li>Common graph representations:</li>
 						<ul>
-							<li class="fragment">Are nodes $i$ and $j$ connected by some path?</li>
-							<li class="fragment">If so, determine such a path.</li>
-							<li class="fragment">In a digraph, is there a directed path from $i$ to $j$?</li>
-							<li class="fragment">Does a (directed) graph have a (directed) cycle?</li>
-							<li class="fragment">Partition a graph into its connected components.</li>
-							<li class="fragment">Partition a digraph into its strongly connected components.</li>
+							<li class="fragment"><strong>Adjacency Matrix</strong> (ideal for <em>dense</em> graphs) &mdash; $O(m+n)$ space</li>
+							<li class="fragment"><strong>Adjacency List</strong> (ideal for <em>sparse</em> graphs) &mdash; $O(n^{2})$ space</li>
+							<li class="fragment"><strong>Edge List</strong> (good for <em>sparse</em> graphs, convert to AL) &mdash; $O(m+n)$ space</li>
+							<li class="fragment"><strong>Incidence Matrix</strong> (multigraphs and hypergraphs) &mdash; $O(mn)$ space</li>
 						</ul>
+						<li class="fragment">Problem specifications will generally provide <strong>Edge Lists</strong></li>
 					</ul>
-					<div class="fragment exclamation">We can answer all of these questions in $O(n)$ using <strong>depth-first search</strong>.</div>
 				</section>
 
 				<section data-auto-animate data-auto-animate-restart>
@@ -151,6 +83,21 @@
 				<section data-auto-animate>
 					<h3>Depth-First Search (DFS)</h3>
 					<img src="../CS3460/figures/graphs/dfs-after.svg" data-id="dfs">
+				</section>
+
+				<section data-auto-animate>
+					<h3>Depth-First Search (DFS)</h3>
+					<ul class="small">
+						<li>DFS can answer all of the following questions in <em>linear time</em></li>
+						<ul>
+							<li class="fragment">Are nodes $i$ and $j$ connected by some path?</li>
+							<li class="fragment">If so, determine such a path.</li>
+							<li class="fragment">In a digraph, is there a directed path from $i$ to $j$?</li>
+							<li class="fragment">Does a (directed) graph have a (directed) cycle?</li>
+							<li class="fragment">Partition a graph into its connected components.</li>
+							<li class="fragment">Partition a digraph into its strongly connected components.</li>
+						</ul>
+					</ul>
 				</section>
 
 				<section data-auto-animate>
@@ -202,12 +149,12 @@
 				</section>
 
 				<section data-auto-animate data-auto-animate-restart>
-					<h3>Using BFS and DFS</h3>
+					<h3>Modifying DFS to Solve Problems</h3>
 					<p>Simply, BFS and DFS answer general connectivity problems, and connectivity questions make for common contest problems.</p>
 				</section>
 
 				<section data-auto-animate>
-					<h3>Using BFS and DFS</h3>
+					<h3>Modifying DFS to Solve Problems</h3>
 					<ul class="small">
 						<li>How do we count connected components in a graph $G$?</li>
 						<ul class="fragment">
@@ -226,6 +173,41 @@
 							<li class="fragment"><em>Run dfs(i), coloring nodes in alternating colors (represented by 0 and 1). If we encounter a node already colored incorrectly, not bipartite.</em></li>
 						</ul>
 					</ul>
+				</section>
+
+				<section data-auto-animate data-auto-animate-restart>
+					<p class="small float-right"><em>(Kattis)</em></p>
+					<h3>Case Study: Where's My Internet</h3>
+					<p class="small problem-text" data-id="problem-text">
+						A new town has $N$ numbered houses, one of which, house 1, is already connected to the internet via a main cable.
+						Other houses may be linked by cables between pairs, creating a network of connected houses.
+						Given the list of existing cables, determine which houses are still not connected to the internet.
+					</p>
+					<p class="small fragment">Run <em>dfs_visit()</em> from node 1, any unvisited nodes after have no internet access.</p>
+				</section>
+
+				<section data-auto-animate data-auto-animate-restart>
+					<p class="small float-right"><em>(Kattis)</em></p>
+					<h3>Case Study: Reachable Roads</h3>
+					<p class="small problem-text" data-id="problem-text">
+						After an earthquake, only some of a city's roads remain usable, and the city may now be split into 
+						several disconnected parts. Each test case gives the number of endpoints and which pairs are still 
+						connected by roads. You may add new roads between any two endpoints. Determine the minimum number of 
+						new roads required so that every endpoint can reach every other.
+					</p>
+					<p class="small fragment">Run <em>full_dfs()</em>, count the number of connected components. The solution is that number minus 1.</p>
+				</section>
+
+				<section data-auto-animate data-auto-animate-restart>
+					<p class="small float-right"><em>(islands3 - Kattis)</em></p>
+					<h3>Case Study: Islands</h3>
+					<p class="small problem-text" data-id="problem-text">
+						You're given an $r \times c$ satellite image grid whose cells are L (land), W (water), or C 
+						(clouds; obscured, unknown land or water). An island is a collection of land grid cells connected 
+						in cardinal directions. Determine the minimum number of islands that could exist while remaining consistent with 
+						the observed L, W, and C cells.
+					</p>
+					<p class="small fragment">Of all the possibilities for the clouds, assuming they are all land tiles minimizes the number of total islands. Assume all clouds are land and run <em>full_dfs()</em> to count connected components.</p>
 				</section>
 			</div>
 		</div>
