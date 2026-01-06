@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>CS3460 - Lecture XX - The Stable-Marriage Problem</title>
+
+		<link rel="stylesheet" href="../reveal-js/dist/reset.css">
+		<link rel="stylesheet" href="../reveal-js/dist/reveal.css">
+		<link rel="stylesheet" href="../reveal-js/dist/theme/dracula.css">
+		<link rel="stylesheet" href="../layouts/common.css">
+		<link rel="stylesheet" href="../layouts/tokyo-night-dark.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<div class="header left">
+					CS3460: Data Structures
+				</div>
+				<div class="header right no-title">
+					<em>The Stable-Marriage Problem</em>
+				</div>
+
+				<section data-state="title-slide">
+					<h1 class="r-fit-text">CS3460: Data Structures & Algorithms</h1>
+					<h2 class="r-fit-text">The Stable-Marriage Problem</h2>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Study: The Stable Marriage Problem</h3>
+					<p>Given <em>n</em> men and <em>n</em> women with preference lists, can we find a <em>stable marriage</em>?</p>
+					<img src="figures/stable-marriage/base.svg">
+				</section>
+
+				<section data-auto-animate>
+					<h3>Study: The Stable Marriage Problem</h3>
+					<p>A <em>stable marriage</em> is a matching that contains no <em>blocking pairs</em>.</p>
+					<img src="figures/stable-marriage/base.svg">
+				</section>
+
+				<section data-auto-animate>
+					<h3>Study: The Stable Marriage Problem</h3>
+					<p>A <em>blocking pair</em> is any man & woman who would <em>prefer to be with one another</em> than who they're currently paired with.</p>
+					<img src="figures/stable-marriage/wrong.svg">
+				</section>
+
+				<section data-auto-animate>
+					<h3>Study: The Stable Marriage Problem</h3>
+					<ul>
+						<li>The stable marriage problem in the real world</li>
+						<ul>
+							<li>matching <em>students</em> to <em>dormitories</em></li>
+							<li>matching <em>medical students</em> to <em>hospital residencies</em></li>
+							<li>matching many <em>users</em> to few <em>servers</em></li>
+						</ul>
+						<li>Countless interesting variations!</li>
+					</ul>
+				</section>
+
+				<section data-auto-animate data-auto-animate-restart>
+					<h3>A Stable Marriage Solution?</h3>
+					<p>A <em>blocking pair</em> is any man & woman who would <em>prefer to be with one another</em> than who they're currently paired with.</p>
+					<img data-id="figure" src="figures/stable-marriage/base.svg">
+				</section>
+
+				<section data-auto-animate>
+					<h3>A Stable Marriage Solution?</h3>
+					<p>$m_1$ proposes to $w_1$</p>
+					<img data-id="figure" src="figures/stable-marriage/01.svg">
+				</section>
+
+				<section data-auto-animate>
+					<h3>A Stable Marriage Solution?</h3>
+					<p>$w_1$ accepts $m_1$'s proposal. $m_2$ proposes to $w_4$</p>
+					<img data-id="figure" src="figures/stable-marriage/02.svg">
+				</section>
+
+				<section data-auto-animate>
+					<h3>A Stable Marriage Solution?</h3>
+					<p>$w_4$ accepts $m_2$'s proposal. $m_3$ proposes to $w_4$</p>
+					<img data-id="figure" src="figures/stable-marriage/03.svg">
+				</section>
+
+				<section data-auto-animate>
+					<h3>A Stable Marriage Solution?</h3>
+					<p>$w_4$ rejects $m_3$'s proposal. $m_3$ proposes to $w_3$</p>
+					<img data-id="figure" src="figures/stable-marriage/04.svg">
+				</section>
+
+				<section data-auto-animate>
+					<h3>A Stable Marriage Solution?</h3>
+					<p>$w_3$ accepts $m_2$'s proposal. $m_4$ proposes to $w_4$</p>
+					<img data-id="figure" src="figures/stable-marriage/05.svg">
+				</section>
+
+				<section data-auto-animate>
+					<h3>A Stable Marriage Solution?</h3>
+					<p>$w_4$ accepts $m_4$'s proposal, breaking with $m_2$. $m_2$ proposes to $w_2$</p>
+					<img data-id="figure" src="figures/stable-marriage/06.svg">
+				</section>
+
+				<section data-auto-animate>
+					<h3>A Stable Marriage Solution?</h3>
+					<p>$w_2$ accepts $m_2$'s proposal, creating a stable marriage</p>
+					<img data-id="figure" src="figures/stable-marriage/07.svg">
+				</section>
+
+				<section data-auto-animate>
+					<h3>A Stable Marriage Solution?</h3>
+					<img data-id="figure" src="figures/stable-marriage/07.svg" style="width: 70%">
+					<p>(1) Does this algorithm always <em>terminate</em>?</p>
+				</section>
+
+				<section data-auto-animate>
+					<h3>A Stable Marriage Solution?</h3>
+					<img data-id="figure" src="figures/stable-marriage/07.svg" style="width: 70%">
+					<p>(2) Is it guaranteed to produce a <em>stable marriage</em>?</p>
+				</section>
+
+				<section data-auto-animate>
+					<h3>A Stable Marriage Solution?</h3>
+					<img data-id="figure" src="figures/stable-marriage/07.svg" style="width: 70%">
+					<p>This algorithm is called the <em>Gale-Shapely algorithm</em>.</p>
+				</section>
+
+				<section data-auto-animate data-auto-animate-restart>
+					<h3>The Gale-Shapely Algorithm</h3>
+					<ul>
+						<li>Always finds a <em>stable matching</em></li>
+						<li>Always terminates. (How would you prove this?)</li>
+						<li><em>Order of proposals</em> doesn't matter</li>
+						<li>Optimal for men, sub-optimal for women</li>
+					</ul>
+					</textarea>
+				</section>
+			</div>
+		</div>
+
+		<script src="../reveal-js/dist/reveal.js"></script>
+		<script src="../reveal-js/plugin/math/math.js"></script>
+		<script src="../reveal-js/plugin/notes/notes.js"></script>
+		<script src="../reveal-js/plugin/markdown/markdown.js"></script>
+		<script src="../reveal-js/plugin/highlight/highlight.js"></script>
+		<script>
+			Reveal.initialize({
+				hash: true,
+				slideNumber: true,
+				transition: 'convex',
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX ],
+			});
+		</script>
+	</body>
+</html>

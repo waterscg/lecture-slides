@@ -27,36 +27,58 @@
 					<h2 class="r-fit-text">Understanding Models of Computation</h2>
 				</section>
 
-				<section data-markdown data-auto-animate class="left">
-					<textarea data-template>
-						### Models of Computation
-						- What are the *primitive operations* available to our algorithm?
-						- How realistic should this model be?
-						---
-						### Turing Machine
-						- A Turing machine is a model defined by an *infinite length tape* containing input, a *head* that can read from or write to whichever cell of the input tape it is located above, and a *state register* to track the current state
-						---
-						### Random Access Machine (RAM)
-						- In the RAM model, instructions are executed *sequentially*.
-						- Memory is an array of words, any individual memory location accessible in *constant time*.
-						- Arithmetic operations like addition, subtraction, multiplication, division, remainder, and comparison are all constant time operations.
-						---
-						### Random Access Machine (RAM)
-						- Is this a realistic model of computation?
-						---
-						### Random Access Machine (RAM)
-						- In the real world, *memory access* takes substantially longer than *arithmetic operations*
-						- Does not take *caching* into consideration
-						---
-						### Comparison Model
-						- Only allowed to make *pairwise comparisons*
-						- Data is a "*black box*," and defines its own *comparison operations*
-						- Why choose such a restrictive model?
-							- RAM model seems much more powerful!
-					</textarea>
+				<section data-auto-animate data-auto-animate-restart>
+					<h3>Models of Computation</h3>
+					<ul>
+						<li>What <em>primitive operations</em> are available?</li>
+						<li>How realistic should this model be?</li>
+					</ul>
+				</section>
+
+				<section data-auto-animate data-auto-animate-restart>
+					<h3>Turing Machine</h3>
+					<ul>
+						<li>A Turing machine is a model defined by an <em>infinite length tape</em> containing input, a <em>head</em> that can read from or write to whichever cell of the input tape it is located above, and a <em>state register</em> to track the current state</li>
+					</ul>
+				</section>
+
+				<section data-auto-animate data-auto-animate-restart>
+					<h3>Random Access Machine (RAM)</h3>
+					<ul>
+						<li>In the RAM model, instructions are executed <em>sequentially</em>.</li>
+						<li>Memory is an array of words, any individual memory location accessible in <em>constant time</em>.</li>
+						<li>Arithmetic operations like addition, subtraction, multiplication, division, remainder, and comparison are all constant time operations.</li>
+					</ul>
 				</section>
 
 				<section data-auto-animate>
+					<h3>Random Access Machine (RAM)</h3>
+					<ul>
+						<li>Is this a realistic model of computation?</li>
+					</ul>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Random Access Machine (RAM)</h3>
+					<ul>
+						<li>In the real world, <em>memory access</em> takes substantially longer than <em>arithmetic operations</em></li>
+						<li>Does not take <em>caching</em> into consideration</li>
+					</ul>
+				</section>
+
+				<section data-auto-animate data-auto-animate-restart>
+					<h3>Comparison Model</h3>
+					<ul>
+						<li>Only allowed to make <em>pairwise comparisons</em></li>
+						<li>Data is a "<em>black box</em>," and defines its own <em>comparison operations</em></li>
+						<li>Why choose such a restrictive model?</li>
+						<ul>
+							<li>RAM model seems much more powerful!</li>
+						</ul>
+					</ul>
+				</section>
+
+				<section data-auto-animate data-auto-animate-restart>
 					<h3>Abstraction in Expressing Algorithms</h3>
 					<ul class="small">
 						<li><strong>Problem:</strong> Given a sorted array of $n$ integers, does there exist two integers that add to a target value $t$?</li>
