@@ -163,6 +163,7 @@
 						<li class="fragment"><code>insert(k)</code>: 
 							<span class="fragment">insert at the head of the correct linked list</span>
 							<span class="fragment"> - $O(1)$</span>
+							<span class="fragment"><em>(not exactly)</em></span>
 						</li>
 						<li class="fragment"><code>remove(k)</code>: 
 							<span class="fragment">remove from the correct linked list</span>
@@ -179,6 +180,160 @@
 						<li class="fragment">Hashing $n$ keys into a table of size $m$, on average, produces lists of size <span class="fragment">$n/m$.</span> <span class="fragment">If $m = O(n)$, then the length of each individual list is</span> <span class="fragment">$O(1)$</span> <span class="fragment">in expectation.</span></li>
 						<li class="fragment"><strong>Universal hashing</strong> gives a $O(1)$ <em>expected</em> guarantee for <code>find(k)</code></li>
 					</ul>
+				</section>
+
+				<section data-auto-animate data-auto-animate-restart>
+					<h3>A (Not-So-) Quick Detour:<br />What Is Amortized Analysis?</h3>
+					<img src="figures/hashing/hash-table-chaining.svg" data-id="figure" width="25%" class="float-right">
+					<p>How efficient is a hash table with chaining really?</p>
+					<ul class="small" style="display: block;">
+						<li><code>find(k)</code> - $O(1)$ "<em>on average</em>"; <em>worst-case $O(n)$</em>.</li>
+						<ul>
+							<li>Universal hashing gives us $O(1)$ in expectation</li>
+						</ul>
+						<li><code>remove(k)</code> - takes $O(1)$ post-find</li>
+						<li><code>insert(k)</code> - $O(1)$ usually <em>(insert at the head of a linked list)</em></li>
+						<ul>
+							<li class="fragment">of course, if a linked list gets too long, we might want to resize</li>
+							<li class="fragment">doubling the size of the table would take <em>$O(n)$ worst-case</em></li>
+						</ul>
+					</ul>
+				</section>
+
+				<section data-auto-animate>
+					<h3>A (Not-So-) Quick Detour:<br />What Is Amortized Analysis?</h3>
+					<p class="small">Imagine insertions take <em>$O(1)$</em>, except when doubling in size...</p>
+					<img src="figures/big-o/amortized-dbl-1.png" data-id="dbl-fig">
+				</section>
+
+				<section data-auto-animate>
+					<h3>A (Not-So-) Quick Detour:<br />What Is Amortized Analysis?</h3>
+					<img src="figures/big-o/amortized-dbl-2.png" data-id="dbl-fig">
+					<p class="small">The total cost of inserts up to size $k$ is<br /><span style="background-color: #D87A00;">exactly $k$</span> for the nodes, and <span style="background-color: #009600;">$\le 2k$</span> for the resizes</p>
+				</section>
+
+				<section data-auto-animate>
+					<h3>A (Not-So-) Quick Detour:<br />What Is Amortized Analysis?</h3>
+					<img src="figures/big-o/amortized-dbl-2.png" data-id="dbl-fig">
+					<p class="small" style="margin: 0 auto;">So how is our version of insert different than a version that always takes 3 units in the worst-case?</p>
+					<img src="figures/big-o/amortized-dbl-3.png" data-id="dbl-fig2">
+				</section>
+
+				<section data-auto-animate>
+					<h3>A (Not-So-) Quick Detour:<br />What Is Amortized Analysis?</h3>
+					<ul class="small">
+						<li>What is <strong>amortization</strong>? It is a guarantee of average <em>over a sequence of consecutive operations</em></li>
+						<ul>
+							<li class="fragment">If <code>insert(k)</code> usually takes $O(1)$ time, but every $n$ inserts, has to perform a $O(n)$ resize, it is more accurate to say that "<em>on average</em>," <code>insert(k)</code> takes constant time.</li>
+							<li class="fragment">We would call this $O(1)$ <strong>amortized</strong> time</li>
+						</ul>
+						<li class="fragment">In general, an operation runs in $O(f(n))$ amortized time if <em>any sequence of $k$ operations</em> runs in $O(k \times f(n))$ time.</li>
+					</ul>
+				</section>
+
+				<section data-auto-animate>
+					<h3>A (Not-So-) Quick Detour:<br />What Is Amortized Analysis?</h3>
+					<p><em>Why do we care?</em></p>
+					<ul class="small">
+						<li class="fragment">Suppose we have the following two options for implementing a method</li>
+						<ol>
+							<li class="fragment">$O(\lg n)$ <em>worst-case</em> time / operation</li>
+							<li class="fragment">$O(\lg n)$ <em>amortized</em> time / operation</li>
+						</ol>
+						<li class="fragment">There is <em>no difference</em>, as far as we are concerned, as long as we use this method <em>as part of a larger operation</em> (or repeatedly). Calling this method $n$ times is going to take $O(n \lg n)$ <strong>worst-case</strong> in either case.</li>
+						<li class="fragment">The only difference is in the <em>"real-time" response time</em> of an individual operation (<em>which may not matter</em>). The amortized method <em>can occasionally take longer</em>.</li>
+					</ul>
+				</section>
+
+				<section data-auto-animate>
+					<h3>A (Not-So-) Quick Detour:<br />What Is Amortized Analysis?</h3>
+					<ul class="small">
+						<li>One helpful approach: <em>the "accounting" method</em>.</li>
+						<li class="fragment">We <em>mentally</em> overcharge ourselves for earlier <em>cheap operations</em> to build up sufficient credit to pay for later <em>expensive operations</em>.</li>
+						<li class="fragment"><strong>Example:</strong> suppose we pay <span>$</span>50/month for gas, plus <span>$</span>1200 in December for annual vehicle maintenance</li>
+						<ul>
+							<li class="fragment">Paying that <span>$</span>1200 all at once in December might be <em>difficult</em> financially</li>
+							<li class="fragment">Might be <em>easier</em> to budget an extra $100 per month so you have it ready when December arrives</li>
+							<li class="fragment"><em>Budget to spend <span>$</span>150 per month</em>, <span>$</span>50 for gas, <span>$</span>100 for savings</li>
+							<li class="fragment">By the time we reach December, we have enough "<em>credit</em>" to pay the maintenance cost</li>
+						</ul>
+					</ul>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Simple Problem: Min Stack</h3>
+					<div class="r-stack float-right">
+						<img src="figures/stacks-queues/min-stack-1.svg" width="70%" class="fragment current-visible" data-fragment-index="1">
+						<img src="figures/stacks-queues/min-stack-2.svg" width="70%" class="fragment" data-fragment-index="2">
+					</div>
+					<ul class="small" style="display: block;">
+						<li>Let's implement a "min stack" supporing the following operations in <strong>$O(1)$ worst-case</strong> time:</li>
+						<ul>
+							<li><code>push(x)</code></li>
+							<li><code>pop()</code></li>
+							<li><code>find_min()</code>: <em>return the minimum value present in the stack</em></li>
+						</ul>
+						<li class="fragment" data-fragment-index="1">One implementation:</li>
+						<ul>
+							<li class="fragment" data-fragment-index="1">Keep a pointer to the current minimum</li>
+							<li class="fragment" data-fragment-index="2">Augment each element $e$ with a pointer to the minimum element below it (whatever was the minimum at the time $e$ was pushed)</li>
+						</ul>
+					</ul>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Harder Problem: Min Queue</h3>
+					<ul class="small">
+						<li>Using a linked list or circular array, we can implement a standard FIFO queue supporting <code>enqueue(x)</code> and <code>dequeue()</code> operations both in <em>$O(1)$ worst-case</em> time.</li>
+						<li class="fragment" data-fragment-index="1">What if we want to support a <code>find_min()</code> operation, which returns the value of the current minimum element in the queue?</li>
+						<li class="fragment" data-fragment-index="1">Is it possible to implement a "min-queue" supporting <code>enqueue(x)</code>, <code>dequeue()</code>, and <code>find_min()</code> all in <em>$O(1)$ worst-case</em> time?</li>
+					</ul>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Harder Problem: Min Queue</h3>
+					<p class="xsmall">Let's try using a pair of back-to-back <strong>min stacks</strong></p>
+					<img src="figures/stacks-queues/min-queue-1.svg" data-id="min-queue" width="60%">
+					<p class="xsmall fragment">What happens when the purple min stack becomes empty?</p>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Harder Problem: Min Queue</h3>
+					<img src="figures/stacks-queues/min-queue-2.svg" data-id="min-queue" width="60%">
+					<p class="xsmall">
+						When the purple min stack becomes empty, we spend <em>$O(n)$ time</em> to transfer the contents of the blue stack 
+						into the purple stack &mdash; runtime for <code>dequeue()</code>: <em>$O(n)$ worst-case</em>
+					</p>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Harder Problem: Min Queue</h3>
+					<p class="xsmall">Each <code>enqueue(x)</code> charges <strong>2 credits</strong>: 1 for the <em>push</em> onto the blue stack, and 1 additional credit to be used to transfer to the purple stack at a later time</p>
+					<img src="figures/stacks-queues/min-queue-3.svg" data-id="min-queue" width="60%">
+					<ul class="xsmall">
+						<li><code>enqueue(x)</code> and <code>find_min()</code>: <em>$O(1)$ worst-case time</em></li>
+						<li><code>dequeue(x)</code>: <em>$O(1)$ amortized time</em></li>
+					</ul>
+				</section>
+
+				<section data-auto-animate>
+					<h3>A (Not-So-) Quick Detour:<br />What Is Amortized Analysis?</h3>
+					<img src="figures/hashing/hash-table-chaining.svg" data-id="figure" width="25%" class="float-right">
+					<p>How efficient is a hash table with chaining really?</p>
+					<ul class="small" style="display: block;">
+						<li><code>find(k)</code> - $O(1)$ "<em>on average</em>"; <em>worst-case $O(n)$</em>.</li>
+						<ul>
+							<li>Universal hashing gives us $O(1)$ in expectation</li>
+						</ul>
+						<li><code>remove(k)</code> - takes $O(1)$ post-find</li>
+						<li><code>insert(k)</code> - <span class="fragment"><strong>$O(1)$ amortized</strong></span> <span class="xsmall fragment">(can we analyze this?)</span></li>
+					</ul>
+					<aside class="notes">
+						basic analysis: when the list is resized, there are n elements in the list
+						next time it is resized, there are 2n elements
+						every element that gets added pays 3 credits, 1 for insert, 2 to bank
+						n new elements paying $2 each pays for the 2n cost of a resize
+					</aside>
 				</section>
 
 				<section data-auto-animate data-auto-animate-restart>
