@@ -182,6 +182,11 @@ object{
 	object-fit: scale-down;
 }
 
+.print-only
+{
+	display: none;
+}
+
 @media print
 {
 	*
@@ -189,11 +194,21 @@ object{
 		color: black !important;
 	}
 
-	img
+	img, object
 	{
 		background: #282a36 !important;
 		-webkit-print-color-adjust: exact !important;   /* Chrome, Safari 6 – 15.3, Edge */
 		color-adjust: exact !important;                 /* Firefox 48 – 96 */
 		print-color-adjust: exact !important;           /* Firefox 97+, Safari 15.4+ */
+	}
+
+	.generated
+	{
+		display: none;
+	}
+
+	.print-only
+	{
+		display: block;
 	}
 }
