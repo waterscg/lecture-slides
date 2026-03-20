@@ -52,7 +52,13 @@
 
 				<section data-auto-animate>
 					<h3>Rotations</h3>
-					<img src="figures/balancing/rotation.svg" width="70%">
+					<object type="image/svg+xml" data="figures/balancing/rotation-anim.svg" width="500" height="400" class="generated">
+						<img src="figures/balancing/rotation.svg" alt="fallback"/>
+					</object>
+					
+					<!-- this is here for printing purposes only -->
+					<img src="figures/balancing/rotation.svg" width="70%" class="print-only" />
+
 					<ul class="small">
 						<li>Almost all balancing mechanisms are built using <em>rotations</em></li>
 						<li class="fragment">Rotations always happen <em>along an edge</em> (i.e., a pair of nodes)</li>
@@ -560,6 +566,11 @@
 				transition: 'convex',
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX ],
 			});
+
+			Reveal.addEventListener( 'slidechanged', function( event ) {
+				for (let obj of event.currentSlide.getElementsByTagName('object'))
+					obj?.contentWindow?.init?.();
+			} );
 		</script>
 	</body>
 </html>
