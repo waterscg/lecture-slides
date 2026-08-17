@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>CS3460 - Lecture 05 - Hashing Large Objects</title>
+		<title>CS3460 - Lecture 04 - Hashing Large Objects</title>
 
 		<link rel="stylesheet" href="../reveal-js/dist/reset.css">
 		<link rel="stylesheet" href="../reveal-js/dist/reveal.css">
@@ -97,19 +97,6 @@
 				</section>
 
 				<section data-auto-animate data-auto-animate-restart>
-					<h3>Uses for Hashing</h3>
-					<ul class="small">
-						<li class="fragment"><strong>Consider:</strong> By hashing a file down to a small integer <em>"fingerprint"</em>, we can:</li>
-						<ul>
-							<li class="fragment"><em>Compare</em> (approximately) two files extremely quickly</li>
-							<li class="fragment">Compare files in different locations with <em>minimal communication</em></li>
-							<li class="fragment">Detect tampering in important files (i.e., <em>checksums</em>)</li>
-							<li class="fragment">Ensure <em>integrity of file transfer</em> by sharing the checksum separately.</li>
-						</ul>
-					</ul>
-				</section>
-
-				<section data-auto-animate data-auto-animate-restart>
 					<h3>What About Collisions?</h3>
 					<ul class="small">
 						<li class="fragment">Suppose we hash our object to a 128-bit integer using polynomial hashing</li>
@@ -156,6 +143,19 @@
 						<ul>
 							<li class="fragment">If $m$ is prime, there are at most $n-1$ values for <code>x</code> that will cause a collision.</li>
 							<li class="fragment">Given $m \approx 2^{128}$, the probability of choosing a bad <code>x</code> from <code>0...m-1</code> is $n/2^{128}$, which is <em>extremely small</em> even for large arrays</li>
+						</ul>
+					</ul>
+				</section>
+
+				<section data-auto-animate data-auto-animate-restart>
+					<h3>Uses for Hashing</h3>
+					<ul class="small">
+						<li class="fragment"><strong>Consider:</strong> By hashing a file down to a small integer <em>"fingerprint"</em>, we can:</li>
+						<ul>
+							<li class="fragment"><em>Compare</em> (approximately) two files extremely quickly</li>
+							<li class="fragment">Compare files in different locations with <em>minimal communication</em></li>
+							<li class="fragment">Detect tampering in important files (i.e., <em>checksums</em>)</li>
+							<li class="fragment">Ensure <em>integrity of file transfer</em> by sharing the checksum separately.</li>
 						</ul>
 					</ul>
 				</section>

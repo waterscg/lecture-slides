@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>CS3460 - Lecture 08 - Binary Search Tree Augmentations</title>
+
+		<link rel="stylesheet" href="../reveal-js/dist/reset.css">
+		<link rel="stylesheet" href="../reveal-js/dist/reveal.css">
+		<link rel="stylesheet" href="../reveal-js/dist/theme/dracula.css">
+		<link rel="stylesheet" href="../layouts/common.css">
+		<link rel="stylesheet" href="../reveal-js/plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<div class="header left">
+					CS3460: Data Structures
+				</div>
+				<div class="header right no-title">
+					<em>Binary Search Tree Augmentations</em>
+				</div>
+
+				<section data-state="title-slide">
+					<h1 class="r-fit-text">CS3460: Data Structures & Algorithms</h1>
+					<h2 class="r-fit-text">Binary Search Tree Augmentations</h2>
+				</section>
+
+				<section data-auto-animate data-auto-animate-restart>
+					<h3>Augmentation</h3>
+					<ul class="small">
+						<li>
+							A <strong>balanced BST</strong> supports <code>find</code>, <code>insert</code>, <code>delete</code>, 
+							<code>pred</code>, <code>succ</code> in $O(\lg n)$.
+						</li>
+						<li class="fragment" data-fragment-index="1">Many problems need richer queries, but building an entirely new data structure from scratch is expensive.</li>
+						<li class="fragment" data-fragment-index="2">We can <strong>augment</strong> nodes with extra information to answer new queries, while keeping $O(\lg n)$ updates!</li>
+						<li class="fragment" data-fragment-index="3">
+							The key constraint:
+							<div class="keypoint">
+								The extra field in a node must be computable from the node's own data and its two children's 
+								extra fields alone, so it can be updated in <em>$O(1)$</em> per node touched during any rotation or 
+								rebalancing step.
+							</div>
+						</li>
+					</ul>
+				</section>
+
+				<section data-auto-animate>
+					<h3>Augmentation</h3>
+					<p>The Sacred Recipe <span class="xsmall">(as handed down to us by CLRS)</span></p>
+					<ol class="small">
+						<li class="fragment"><em>Choose</em> an underlying data structure. <span class="small fragment">(binary search tree, ✅)</span></li>
+						<li class="fragment">Determine <em>additional information</em> to maintain in the underlying data structure. <span class="small fragment">(this is what we are calling our "<strong>augmentation</strong>")</span></li>
+						<li class="fragment">Verify that we can <em>maintain</em> the additional information for the basic modifying operations on the underlying data structure</li>
+						<ul>
+							<li class="fragment">"can we keep this data updated through inserts and deletions?"</li>
+							<li class="fragment">Demonstrate <strong>locality</strong> (this data should be able to be derived from a node's contents and its children's augmentations)</li>
+						</ul>
+						<li class="fragment"><em>Develop</em> new operations</li>
+					</ol>
+				</section>
+
+				<section data-auto-animate data-auto-animate-restart>
+					<h3>Augmentation #1: Subtree Size</h3>
+					<ul class="small">
+						<li>A simple example to start with: store <code>size</code> at each node: the number of nodes in its subtree (including itself)</li>
+						<li><strong>Locality:</strong> <code>size = 1 + left.size + right.size</code> (<em>null</em> = 0)</li>
+						<li>We saw this one before. Gave us access to:</li>
+						<ul>
+							<li><code>select(T, k)</code> &ndash; return a pointer to the node with rank $k$</li>
+    						<li><code>rank(T, e)</code> &ndash; return the rank of node $e$ within the set</li>
+						</ul>
+					</ul>
+				</section>
+			</div>
+		</div>
+
+		<script src="../reveal-js/dist/reveal.js"></script>
+		<script src="../reveal-js/plugin/math/math.js"></script>
+		<script src="../reveal-js/plugin/notes/notes.js"></script>
+		<script src="../reveal-js/plugin/markdown/markdown.js"></script>
+		<script src="../reveal-js/plugin/highlight/highlight.js"></script>
+		<script>
+			Reveal.initialize({
+				hash: true,
+				slideNumber: true,
+				transition: 'convex',
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX ],
+			});
+		</script>
+	</body>
+</html>

@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>CS3460 - Lecture 04 - Hash Tables</title>
+		<title>CS3460 - Lecture 03 - Hash Tables</title>
 
 		<link rel="stylesheet" href="../reveal-js/dist/reset.css">
 		<link rel="stylesheet" href="../reveal-js/dist/reveal.css">
@@ -329,10 +329,10 @@
 						<li><code>insert(k)</code> - <span class="fragment"><strong>$O(1)$ amortized</strong></span> <span class="xsmall fragment">(can we analyze this?)</span></li>
 					</ul>
 					<aside class="notes">
-						basic analysis: when the list is resized, there are n elements in the list
-						next time it is resized, there are 2n elements
-						every element that gets added pays 3 credits, 1 for insert, 2 to bank
-						n new elements paying $2 each pays for the 2n cost of a resize
+						basic analysis: when the list is resized, there are n elements in the list.
+						next time it is resized, there are 2n elements.
+						every element that gets added pays 3 credits, 1 for insert, 2 to bank.
+						n new elements paying $2 each pays for the 2n cost of a resize.
 					</aside>
 				</section>
 
